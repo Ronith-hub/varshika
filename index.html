@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Morning Girl 💗</title>
+
+    <style>
+        /* Basic page design */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            background: linear-gradient(
+                135deg,
+                #ffd6e7,
+                #fff0c9,
+                #dcd6ff
+            );
+            background-size: 300% 300%;
+            animation: gradientMove 8s ease infinite;
+        }
+
+        /* Main card */
+        .card {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 440px;
+            padding: 38px 25px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.82);
+            border: 2px solid white;
+            border-radius: 30px;
+            box-shadow: 0 15px 45px rgba(180, 90, 140, 0.2);
+            animation: popIn 0.9s ease;
+        }
+
+        .sun {
+            font-size: 55px;
+            animation: sunDance 2s ease-in-out infinite;
+        }
+
+        h1 {
+            margin: 12px 0;
+            color: #e84393;
+            font-size: clamp(27px, 6vw, 36px);
+            animation: textBounce 2s infinite;
+        }
+
+        .question {
+            margin: 24px 0;
+            color: #59415e;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            padding: 13px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .yes-btn {
+            color: white;
+            background: linear-gradient(45deg, #ff69a6, #ff8bba);
+            box-shadow: 0 5px 15px #ffbad5;
+        }
+
+        .no-btn {
+            color: white;
+            background: linear-gradient(45deg, #9470db, #b39af7);
+            box-shadow: 0 5px 15px #d3c4ff;
+        }
+
+        button:hover {
+            transform: translateY(-5px) scale(1.08);
+        }
+
+        button:active {
+            transform: scale(0.94);
+        }
+
+        /* Response area */
+        #response {
+            margin-top: 25px;
+            color: #d63384;
+            font-size: 19px;
+            font-weight: bold;
+            line-height: 1.8;
+        }
+
+        .message {
+            animation: popIn 0.5s ease;
+        }
+
+        .good-morning-note {
+            margin-top: 20px;
+            color: #8d7092;
+            font-size: 13px;
+        }
+
+        /* Floating hearts and emojis */
+        .floating {
+            position: absolute;
+            bottom: -50px;
+            z-index: 1;
+            font-size: 25px;
+            pointer-events: none;
+            animation: floatUp 7s linear forwards;
+        }
+
+        /* Animations */
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.75) translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes sunDance {
+            0%, 100% { transform: rotate(-12deg); }
+            50% { transform: rotate(12deg) scale(1.12); }
+        }
+
+        @keyframes textBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            15% { opacity: 1; }
+            to {
+                transform: translateY(-115vh) rotate(300deg);
+                opacity: 0;
+            }
+        }
+
+        /* Smaller screens */
+        @media (max-width: 400px) {
+            .card {
+                padding: 30px 18px;
+            }
+
+            button {
+                padding: 12px 25px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="card">
+        <div class="sun">🌞</div>
+
+        <h1>Good morning girl 💗</h1>
+
+        <p class="question">Did u eat? 🍳</p>
+
+        <div class="buttons">
+            <button class="yes-btn" onclick="answerYes()">
+                Yes 😋
+            </button>
+
+            <button class="no-btn" onclick="answerNo()">
+                No 🙄
+            </button>
+        </div>
+
+        <div id="response" aria-live="polite"></div>
+
+        <div class="good-morning-note">
+            Have a lovely morning, sleepyhead! 🌷
+        </div>
+    </main>
+
+    <script>
+        const response = document.getElementById("response");
+        let examTimer;
+
+        // Clear an existing delayed message
+        function resetTimer() {
+            clearTimeout(examTimer);
+        }
+
+        // When she clicks YES
+        function answerYes() {
+            resetTimer();
+
+            response.innerHTML = `
+                <div class="message">
+                    Good girl 😊💖<br>
+                    All the best Girl ... Write well ✨📚
+                </div>
+            `;
+
+            celebrate();
+        }
+
+        // When she clicks NO
+        function answerNo() {
+            resetTimer();
+
+            response.innerHTML = `
+                <div class="message">
+                    Eat eruma 😂🍚
+                </div>
+            `;
+
+            celebrate();
+
+            // Show the exam wish after 3 seconds
+            examTimer = setTimeout(() => {
+                response.innerHTML = `
+                    <div class="message">
+                        Eat eruma 😂🍚<br>
+                        All the best for exam ... write well, girl 💖📚
+                    </div>
+                `;
+
+                celebrate();
+            }, 3000);
+        }
+
+        // Cute floating emoji effect
+        function celebrate() {
+            const emojis = ["💗", "💕", "✨", "🌸", "💖", "😂"];
+
+            for (let i = 0; i < 12; i++) {
+                const item = document.createElement("span");
+
+                item.className = "floating";
+                item.textContent =
+                    emojis[Math.floor(Math.random() * emojis.length)];
+
+                item.style.left = Math.random() * 100 + "vw";
+                item.style.animationDelay = Math.random() * 1.5 + "s";
+                item.style.fontSize = (18 + Math.random() * 22) + "px";
+
+                document.body.appendChild(item);
+
+                setTimeout(() => item.remove(), 9000);
+            }
+        }
+    </script>
+
+</body>
+</html>
